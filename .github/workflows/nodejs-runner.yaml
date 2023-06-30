@@ -1,0 +1,23 @@
+name: nodejs-runner 
+on: [push]
+jobs:
+    run-nodejs-code:
+       runs-on: ubuntu-22.04
+       steps:
+       - name: checkout
+         uses: actions/checkout@v3
+       - name: nodejs-install
+         uses: actions/setup-node@v3
+       - name: install pm2 
+         run: |
+            npm i -g pm2
+            pm2 -v
+       - name: run-nodejs-code 
+         run: |
+            cd app
+            npm init -y
+            npm i uuid 
+            node server.js
+       - name: print 
+         run: echo "${{ job.status }}"
+         
